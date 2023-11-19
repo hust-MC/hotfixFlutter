@@ -4,24 +4,18 @@ import 'package:fair/fair.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
-// 1、在 yaml 文件添加 Fair 相关依赖
-// 2、在需要动态化的 Widget 添加注解
-// 3、添加动态化参数，并且在对应的 State 里添加注解
-// 4、在使用参数的地方，抽取方法。方法返回 fairProps 里的值
-// 5、替换掉原始的 Widget 创建，改为用 FairWidget，传入 （1）path：json 路径；（2）参数 fairProps Map
-
 String filePath = "";
 
 Future<void> main() async {
-  // runApp(const MyApp());
-  WidgetsFlutterBinding.ensureInitialized();
-  filePath = (await getApplicationDocumentsDirectory()).path;
-
-  print('File path: $filePath');
-
-  FairApp.runApplication(
-    _myApp(),
-  );
+  runApp(const MyApp());
+  // WidgetsFlutterBinding.ensureInitialized();
+  // filePath = (await getApplicationDocumentsDirectory()).path;
+  //
+  // print('File path: $filePath');
+  //
+  // FairApp.runApplication(
+  //   _myApp(),
+  // );
 }
 
 FairApp _myApp() {
@@ -48,16 +42,14 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: FairWidget(path: '$filePath/fair_bundle/lib_main.fair.json', data: {
-        'fairProps': jsonEncode({'title': 'Flutter 动态化课程'})
-      }),
+      home: MyHomePage(),
     );
   }
 }
 
 @FairPatch()
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.fairProps}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -68,8 +60,6 @@ class MyHomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final dynamic fairProps;
-
   @override
   State<MyHomePage> createState() {
     return _MyHomePageState();
@@ -79,16 +69,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  @FairProps()
-  var fairProps;
-
   @override
   void initState() {
     super.initState();
-    fairProps = widget.fairProps;
   }
 
-  void _incrementCounter() {
+  void _increment_counter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -144,13 +130,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _increment_counter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-  /// 返回标题，内容来源于 fariProps
-  String getTitle() => fairProps['title'];
+  String getTitle() => 'Flutter 动态化实战课程';
 }
