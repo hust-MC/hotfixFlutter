@@ -2,7 +2,10 @@ import 'dart:convert';
 
 import 'package:fair/fair.dart';
 import 'package:flutter/material.dart';
+import 'package:hotfix/AssetsConst.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'gen/assets.gen.dart';
 
 String filePath = "";
 
@@ -126,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: TextStyle(fontSize: 38, color: Color(0xff737373), wordSpacing: 0),
             ),
+            Assets.images.logo.image()
           ],
         ),
       ),
@@ -138,4 +142,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   String getTitle() => 'Flutter 动态化实战课程';
+
+  String assetsPath(String name,
+      {String root = "assets/images/", String dir = "", String type = '.png'}) {
+    return 'assets/images/$name.png';
+  }
 }
