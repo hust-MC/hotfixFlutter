@@ -1,0 +1,7 @@
+builders:
+  builderFactory:
+    import: "package:hotfix/builder/builder_factory.dart" #导入工厂方法所在文件
+    builder_factories: [ "builderFactory" ]
+    build_extensions: { '.dart': [ '.dart.copyright' ] }
+    build_to: source
+    auto_apply: root_package
