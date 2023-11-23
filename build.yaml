@@ -1,7 +1,7 @@
 builders:
-  builderFactory:
-    import: "package:hotfix/builder/builder_factory.dart" #导入工厂方法所在文件
-    builder_factories: [ "builderFactory" ]
-    build_extensions: { '.dart': [ '.dart.copyright' ] }
+  testApt:
+    import: "package:hotfix/builder/apt_builder.dart" #导入工厂方法所在文件
+    builder_factories: [ "testApt" ]
+    build_extensions: { '.dart': [ '.g.dart' ] }
     build_to: source
     auto_apply: root_package
